@@ -6,8 +6,8 @@
 package jogopoo.Model;
 
 import java.awt.event.KeyEvent;
-import jogopoo.Application;
-import jogopoo.Engine.Subject;
+import jogopoo.Control.*;
+import jogopoo.View.EntidadeView;
 
 /**
  *
@@ -21,8 +21,8 @@ public abstract class PersonagemModel extends EntidadeModel{
     public float hp_regen;
     public SubjectPosPers SubjectPosicao;
 
-    public PersonagemModel(SubjectPosPers s, Coordenada pos) {
-        super(pos);
+    public PersonagemModel(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view) {
+        super(updt, pos, view);
         this.SubjectPosicao = s;
     }
     public void update(){
@@ -51,7 +51,7 @@ public abstract class PersonagemModel extends EntidadeModel{
         
         if(aux_x != 0 && aux_y != 0){
             aux_y *= Math.cos(Math.PI/4);
-            aux_x = aux_y;
+            aux_x *= Math.cos(Math.PI/4);
         }
         if(aux_x != 0 || aux_y != 0)this.SubjectPosicao.notificarObservadores(this.posicao);
         this.posicao.x += aux_x*getVelocidade();

@@ -5,11 +5,10 @@
  */
 package jogopoo.View;
 
+import jogopoo.Control.Application;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.*;
-import jogopoo.*;
-import jogopoo.Engine.*;
 import jogopoo.Model.*;
 
 /**
@@ -27,8 +26,8 @@ public class Sprite{
         this.Posicao = c;
     }
     public void draw(Graphics bbg,Application a){
-        if(++index > imagens.size())index = 0;
-        bbg.drawImage(this.imagens.get(index).getImage(),(int)Posicao.x,(int)Posicao.y,a);
+        if(++index >= imagens.size())index = 0;
+        bbg.drawImage(imagens.get(index).getImage(),(int)Posicao.x,(int)Posicao.y,a);
     }
     
     

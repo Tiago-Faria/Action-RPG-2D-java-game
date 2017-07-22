@@ -9,6 +9,6 @@ package jogopoo.Control;
  *
  * @author tiago
  */
-public interface Controller {
-    
+public interface Observer {
+    public void notificar();
 }

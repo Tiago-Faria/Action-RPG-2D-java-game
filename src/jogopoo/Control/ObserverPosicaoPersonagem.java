@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogopoo.Engine;
+package jogopoo.Control;
+
+import jogopoo.Model.Coordenada;
 
 /**
  *
  * @author tiago
  */
-public interface Observer {
-    public void notificar();
+public interface ObserverPosicaoPersonagem {
+    public void notificarPosicao(Coordenada c);
 }

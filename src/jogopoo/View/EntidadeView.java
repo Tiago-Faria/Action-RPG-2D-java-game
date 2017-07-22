@@ -5,7 +5,7 @@
  */
 package jogopoo.View;
 
-import jogopoo.Application;
+import jogopoo.Control.Application;
 
 /**
  *
@@ -18,6 +18,7 @@ public class EntidadeView {
     }
     public EntidadeView(){}
     public void draw(){
+        
         this.sprite.draw(Application.bbg, Application.Application);
     }
     public void setSprite(Sprite s){

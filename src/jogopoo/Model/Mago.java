@@ -5,7 +5,8 @@
  */
 package jogopoo.Model;
 
-import jogopoo.Engine.Subject;
+import jogopoo.Control.*;
+import jogopoo.View.*;
 
 /**
  *
@@ -15,8 +16,8 @@ public class Mago extends PersonagemModel{
     public float mana_max;
     public float mana;
     public float mana_regen;
-    public Mago(SubjectPosPers s, Coordenada pos) {
-        super(s, pos);
+    public Mago(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view) {
+        super(updt, s, pos, view);
     }
 
     @Override

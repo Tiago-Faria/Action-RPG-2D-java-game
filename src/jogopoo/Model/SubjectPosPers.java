@@ -5,8 +5,8 @@
  */
 package jogopoo.Model;
 
+import jogopoo.Control.ObserverPosicaoPersonagem;
 import java.util.ArrayList;
-import jogopoo.Engine.*;
 
 /**
  *

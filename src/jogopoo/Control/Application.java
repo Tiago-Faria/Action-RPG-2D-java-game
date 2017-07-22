@@ -3,21 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogopoo;
+package jogopoo.Control;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
-import jogopoo.Control.EntidadeController;
-import jogopoo.Engine.*;
-import jogopoo.Model.Coordenada;
-import jogopoo.Model.PersonagemModel;
-import jogopoo.Model.SimpleFactoryPersonagem;
-import jogopoo.Model.SubjectPosPers;
-import jogopoo.View.EntidadeView;
-import jogopoo.View.Sprite;
+import jogopoo.Model.*;
+import jogopoo.View.*;
 /**
  *
  * @author tiago
@@ -33,6 +27,7 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     public static boolean mouse = false;
     public static Application Application;
     public static Graphics bbg;
+    private PersonagemModel persModel;
     ///testes camera
         private int camerax = 0;
         private int cameray = 0;
@@ -75,37 +70,33 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         setLocationRelativeTo(null);
         backBuffer = new BufferedImage(3*ComprimentoJanela, 3*AlturaJanela, BufferedImage.TYPE_INT_RGB);
         updater = new Updater();
+        
+        bbg = backBuffer.getGraphics();//COM bbg IREMOS DESENHAR NO NOSSO BUFFER
         //p = new Personagem();
         EntidadeView entView = new EntidadeView();
-        PersonagemModel persModel;
-        persModel = SimpleFactoryPersonagem.CriarPersonagem("Mago", entView,new Coordenada(50,50),new SubjectPosPers());
-        EntidadeController Personagem = new EntidadeController(entView, persModel, updater);
+        
+        persModel = SimpleFactoryPersonagem.CriarPersonagem(updater,"Mago", entView,new Coordenada(50,50),new SubjectPosPers());
         
     }
     public void atualizar() {
         updater.notificarObservadores();
-        if(teclas[KeyEvent.VK_RIGHT])camerax++;
-        if(teclas[KeyEvent.VK_LEFT])camerax--;
-        if(teclas[KeyEvent.VK_DOWN])cameray++;
-        if(teclas[KeyEvent.VK_UP])cameray--;
+        AtualizarCamera();
+        
     }
     public void desenharGraficos() {
         Graphics g = getGraphics();//COM g IREMOS DESENHAR O QUE ESTA NO BUFFER NA TELA
-        bbg = backBuffer.getGraphics();//COM bbg IREMOS DESENHAR NO NOSSO BUFFER
-
-        desenharFundo(bbg);
-        
         
         //AQUI ESTAMOS DESENHANDO O BUFFER NA TELA,    
         g.drawImage(backBuffer, -camerax, -cameray, this);
+        desenharFundo(bbg);
     }
 
     public void desenharFundo(Graphics bbg) {
-        //Image backGround = new ImageIcon("src/Imagens/backTile.png").getImage();
-        bbg.clearRect(0,0,ComprimentoJanela, AlturaJanela);
+        Image backGround = new ImageIcon("src/imagens/backTile.png").getImage();
+        bbg.clearRect(0,0,ComprimentoJanela*3, 3*AlturaJanela);
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
-                //bbg.drawString("n"+i+j, i*ComprimentoJanela/10, j*AlturaJanela/10);
+                bbg.drawImage(backGround, i*55, j*44,this);
                 //bbg.drawImage(backGround, i * janelaW / 10, j * janelaH / 10, this);
             }
         }
@@ -140,5 +131,15 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     @Override
     public void keyReleased(KeyEvent e) {
         teclas[e.getKeyCode()] = false;
+    }
+
+    private void AtualizarCamera() {
+        this.camerax = (int) this.persModel.posicao.x - ComprimentoJanela/2  + 25;
+        this.cameray = (int) this.persModel.posicao.y - AlturaJanela/2 + 25;
+        if(camerax<0)camerax=0;
+        if(cameray<0)cameray=0;
+        if(camerax + ComprimentoJanela > 3*ComprimentoJanela)camerax = 2*ComprimentoJanela;
+        if(cameray + AlturaJanela > 3*AlturaJanela)cameray = 2*AlturaJanela;
+        
     }
 }

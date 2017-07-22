@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogopoo.Engine;
+package jogopoo.Control;
 
+import jogopoo.Control.Observer;
 import java.util.ArrayList;
 
 /**
