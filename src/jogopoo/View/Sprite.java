@@ -16,32 +16,21 @@ import jogopoo.Model.*;
  *
  * @author tiago
  */
-public class Sprite implements Observer{
-    private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+public class Sprite{
     private ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
-    private int index;
-    private Entidade entidade;
+    private int index = 0;
+    private EntidadeModel entidade;
+    public Coordenada Posicao;
     
-    Sprite(Updater u){
-        u.registrarObservador(this);
-        sprites.add(this);
-        this.index = 0;
-    }
-    public void atualizar() {
-        if(++index > imagens.size())index = 0;
+    public Sprite(ArrayList<ImageIcon> sprite,Coordenada c){
+        this.imagens = sprite;
+        this.Posicao = c;
     }
     public void draw(Graphics bbg,Application a){
-        bbg.drawImage(this.imagens.get(index).getImage(),entidade.x,entidade.y,a);
+        if(++index > imagens.size())index = 0;
+        bbg.drawImage(this.imagens.get(index).getImage(),(int)Posicao.x,(int)Posicao.y,a);
     }
-    public static void atualizarSprites(){
-        for(int i=0;i<sprites.size();i++){
-            sprites.get(i).atualizar();
-        }
-    }
-    public static void drawSprites(Graphics bgg,Application a){
-        for(int i=0;i<sprites.size();i++){
-            sprites.get(i).draw(bgg,a);
-        }
-    }
+    
+    
     
 }

@@ -14,25 +14,27 @@ import jogopoo.View.*;
  *
  * @author tiago
  */
-public class Entidade implements Observer{
-    private Sprite sprite;
-    public int x;
-    public int y;
-    private float hp;
-    private float dano;
-    private float velocidade = 50;
-    private float vel_ataque;
-    private String nome;
-    private float hp_max;
-    private int nivel;
-    Entidade(Subject s){
-        s.registrarObservador(this);
-    }
+public abstract class EntidadeModel{
+    public Coordenada posicao;
+    protected float hp;
+    protected float dano;
+    protected float velocidade = 50;
+    public float defesa;
+    protected float vel_ataque;
+    protected String nome;
+    protected float hp_max;
+    protected int nivel;
     
-
-    @Override
-    public void atualizar() {
-       
+    EntidadeModel(Coordenada pos){
+        this.posicao = pos;
     }
+    public void update(){
+        
+    }
+    public void receberDano(float dano){
+        this.hp -= Math.abs(dano-getDefesa());
+    }
+    public abstract float getDefesa();
+    public abstract void movimentar();
     
 }

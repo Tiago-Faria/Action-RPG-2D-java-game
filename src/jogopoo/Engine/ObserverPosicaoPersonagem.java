@@ -11,8 +11,6 @@ import jogopoo.Model.Coordenada;
  *
  * @author tiago
  */
-public interface Subject {
-    void registrarObservador(Observer o );
-    void removerObservador(Observer o );
-    void notificarObservadores();
+public interface ObserverPosicaoPersonagem {
+    public void notificarPosicao(Coordenada c);
 }

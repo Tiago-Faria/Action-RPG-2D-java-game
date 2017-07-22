@@ -6,6 +6,8 @@
             <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Application.java</file>
             <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/View/Sprite.java</file>
             <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Engine/Subject.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Engine/Updater.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Engine/Observer.java</file>
             <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/Entidade.java</file>
         </group>
     </open-files>

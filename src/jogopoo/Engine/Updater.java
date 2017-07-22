@@ -22,7 +22,7 @@ public class Updater implements Subject{
     public void notificarObservadores(){
         for(int i = 0;i < updaters.size();i++){
             Observer observador = (Observer) updaters.get(i);
-            observador.atualizar();
+            observador.notificar();
         }
     }
 }

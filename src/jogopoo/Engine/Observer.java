@@ -10,5 +10,5 @@ package jogopoo.Engine;
  * @author tiago
  */
 public interface Observer {
-    public void atualizar();
+    public void notificar();
 }

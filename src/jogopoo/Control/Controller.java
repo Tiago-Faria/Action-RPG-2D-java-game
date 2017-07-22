@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogopoo.Engine;
-
-import jogopoo.Model.Coordenada;
+package jogopoo.Control;
 
 /**
  *
  * @author tiago
  */
-public interface Subject {
-    void registrarObservador(Observer o );
-    void removerObservador(Observer o );
-    void notificarObservadores();
+public interface Controller {
+    
 }
