@@ -23,18 +23,23 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
     protected String nome;
     protected float hp_max;
     protected int nivel;
+    public HitBoxCircle hitbox;
     
     EntidadeView View;
-    public EntidadeModel(Updater updt, Coordenada pos, EntidadeView view){
+    public EntidadeModel(Updater updt, Coordenada pos, EntidadeView view,float raioHitbox,ColisionHandler col){
         this.posicao = pos;
         this.View = view;
+        this.hitbox = new HitBoxCircle(posicao, raioHitbox);
+        col.registrarObservador(this);
         updt.registrarObservador(this);
+        
     }
     @Override
     public void notificar() {
         update();
         View.draw();
     }
+    
     public void update(){}
     public void receberDano(float dano){
         this.hp -= Math.abs(dano-getDefesa());
@@ -43,14 +48,22 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
     public abstract void movimentar();
 
     @Override
-    public HitBox getHitBox() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HitBoxCircle getHitBox() {
+        return this.hitbox;
     }
 
-    @Override
-    public void colide() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public float getVel_ataque() {
+        return vel_ataque;
     }
+
+    public void setVel_ataque(float vel_ataque) {
+        this.vel_ataque = vel_ataque;
+    }
+    
+    
+
+    @Override
+    public void colide(ObserverColisao objColidido) {}
 
     
     

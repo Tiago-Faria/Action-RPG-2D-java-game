@@ -9,12 +9,9 @@ package jogopoo.Model;
  *
  * @author tiago
  */
-public class HitBox {
-    Coordenada inicio;
-    Float raio;
-    
-    boolean isColiding(HitBox h){
-        if(inicio.getDistanceTo(h.inicio) <= this.raio+h.raio)return true;
-        else return false;
-    }
+public interface HitBox {
+    public boolean isColiding(HitBoxCircle h);
+    public boolean isColiding(HitBoxSquare h);
+
+    public boolean isColiding(HitBox hitBox);
 }

@@ -3,12 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Application.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/Application.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/ColisionHandler.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/ObserverColisao.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/Observer.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/HitBoxCircle.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/Coordenada.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/View/EntidadeView.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/Parede.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/HitBox.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/ObserverPosicaoPersonagem.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/Mago.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/HitBoxSquare.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/Subject.java</file>
             <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/View/Sprite.java</file>
-            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Engine/Subject.java</file>
-            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Engine/Updater.java</file>
-            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Engine/Observer.java</file>
-            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/Entidade.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/EntidadeModel.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/SimpleFactoryPersonagem.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/PersonagemModel.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/imagens/backTile.png</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Control/Updater.java</file>
+            <file>file:/home/tiago/NetBeansProjects/JogoPoo/src/jogopoo/Model/Model.java</file>
         </group>
     </open-files>
 </project-private>

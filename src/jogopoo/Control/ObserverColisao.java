@@ -13,5 +13,5 @@ import jogopoo.Model.*;
  */
 public interface ObserverColisao {
     public HitBox getHitBox();
-    public void colide();
+    public void colide(ObserverColisao ObjColidido);
 }

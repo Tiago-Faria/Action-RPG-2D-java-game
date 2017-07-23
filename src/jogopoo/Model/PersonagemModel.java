@@ -20,15 +20,19 @@ public abstract class PersonagemModel extends EntidadeModel{
     public int xp;
     public float hp_regen;
     public SubjectPosPers SubjectPosicao;
+    public boolean canCast;
+    private Habilidades MagiaQ;
+    private Habilidades MagiaE;
 
-    public PersonagemModel(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view) {
-        super(updt, pos, view);
+    public PersonagemModel(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view,float raio,ColisionHandler col) {
+        super(updt, pos, view,raio,col);
         this.SubjectPosicao = s;
     }
     public void update(){
         defender();
         movimentar();
         regenerarVida();
+        usarHabilidade();
         hook();
     }
     public void defender(){
@@ -39,7 +43,18 @@ public abstract class PersonagemModel extends EntidadeModel{
         if(isDefending)return this.defesa;
         else return this.defesa/2;
     }
-
+    public void usarHabilidade()
+    {
+        if(this.getCanCast()){
+            if(Application.teclas[KeyEvent.VK_Q]){
+                this.MagiaQ.usarHabilidade(this);
+            }
+            else if(Application.teclas[KeyEvent.VK_E]){
+                this.getMagiaE();
+            }       
+        }
+    }
+    
     @Override
     public void movimentar() {
         float aux_x = 0;
@@ -56,6 +71,40 @@ public abstract class PersonagemModel extends EntidadeModel{
         if(aux_x != 0 || aux_y != 0)this.SubjectPosicao.notificarObservadores(this.posicao);
         this.posicao.x += aux_x*getVelocidade();
         this.posicao.y += aux_y*getVelocidade();
+        if(ColisionHandler.isColiding(this, "jogopoo.Model.Parede")){
+            this.posicao.x -= aux_x*getVelocidade();
+            this.posicao.y -= aux_y*getVelocidade();
+        }
+    }
+
+    public Habilidades getMagiaQ() {
+        return MagiaQ;
+    }
+
+    public Habilidades getMagiaE() {
+        return MagiaE;
+    }
+
+    public float getPc_crit() {
+        return pc_crit;
+    }
+    public void setPc_crit(float pc_crit) {
+        this.pc_crit = pc_crit;
+    }
+    public float getHp_regen() {
+        return hp_regen;
+    }
+    public void setHp_regen(float hp_regen) {
+        this.hp_regen = hp_regen;
+    }
+    
+    
+    
+    public boolean getCanCast(){
+        return canCast;
+    }
+    public void setVelocidade(float velocidade) {
+        this.velocidade = velocidade;
     }
     private float getVelocidade(){
         if(isDefending)return this.velocidade/2;

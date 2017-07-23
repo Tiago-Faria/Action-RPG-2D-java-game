@@ -19,10 +19,11 @@ import jogopoo.View.*;
 public class Application extends JFrame implements KeyListener,MouseListener{
     private BufferedImage backBuffer;
     private boolean gamePaused = false;
-    private final int FPS = 30;
-    private Updater updater;
+    private static final int FPS = 30;
+    public static Updater updater;
+    public static ColisionHandler handler;
     private static final int AlturaJanela = 450;
-    private static final int ComprimentoJanela = 550;
+    private static final int ComprimentoJanela= 550;
     public static boolean teclas[] = new boolean[1024];
     public static boolean mouse = false;
     public static Application Application;
@@ -70,13 +71,16 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         setLocationRelativeTo(null);
         backBuffer = new BufferedImage(3*ComprimentoJanela, 3*AlturaJanela, BufferedImage.TYPE_INT_RGB);
         updater = new Updater();
-        
+        handler = new ColisionHandler();
         bbg = backBuffer.getGraphics();//COM bbg IREMOS DESENHAR NO NOSSO BUFFER
         //p = new Personagem();
         EntidadeView entView = new EntidadeView();
+        persModel = SimpleFactoryPersonagem.CriarPersonagem(updater,"Mago", entView,new Coordenada(50,50),new SubjectPosPers(),handler);
         
-        persModel = SimpleFactoryPersonagem.CriarPersonagem(updater,"Mago", entView,new Coordenada(50,50),new SubjectPosPers());
-        
+        InicializarParedes();
+    }
+    public void InicializarParedes(){
+        new Parede(new Coordenada(100,300),new Coordenada(300,500),this.handler,this.updater);
     }
     public void atualizar() {
         updater.notificarObservadores();

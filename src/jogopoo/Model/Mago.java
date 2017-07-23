@@ -16,8 +16,9 @@ public class Mago extends PersonagemModel{
     public float mana_max;
     public float mana;
     public float mana_regen;
-    public Mago(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view) {
-        super(updt, s, pos, view);
+    public Mago(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view,float raio,ColisionHandler col) {
+        super(updt, s, pos, view,raio,col);
+        
     }
 
     @Override
@@ -32,4 +33,14 @@ public class Mago extends PersonagemModel{
         mana += mana_regen;
         if(mana > mana_max)mana = mana_max;
     }
+
+    public float getMana_regen() {
+        return mana_regen;
+    }
+
+    public void setMana_regen(float mana_regen) {
+        this.mana_regen = mana_regen;
+    }
+    
+    
 }
