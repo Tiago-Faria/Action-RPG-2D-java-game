@@ -26,12 +26,12 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
     public HitBoxCircle hitbox;
     
     EntidadeView View;
-    public EntidadeModel(Updater updt, Coordenada pos, EntidadeView view,float raioHitbox,ColisionHandler col){
+    public EntidadeModel(Coordenada pos, EntidadeView view,float raioHitbox){
         this.posicao = pos;
         this.View = view;
         this.hitbox = new HitBoxCircle(posicao, raioHitbox);
-        col.registrarObservador(this);
-        updt.registrarObservador(this);
+        Application.Application.updater.registrarObservador(this);
+        Application.Application.colisionHandler.registrarObservador(this);
         
     }
     @Override

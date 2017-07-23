@@ -19,14 +19,12 @@ public abstract class PersonagemModel extends EntidadeModel{
     public float pc_crit;
     public int xp;
     public float hp_regen;
-    public SubjectPosPers SubjectPosicao;
     public boolean canCast;
     private Habilidades MagiaQ;
     private Habilidades MagiaE;
 
-    public PersonagemModel(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view,float raio,ColisionHandler col) {
-        super(updt, pos, view,raio,col);
-        this.SubjectPosicao = s;
+    public PersonagemModel(Coordenada pos, EntidadeView view,float raio) {
+        super(pos, view,raio);
     }
     public void update(){
         defender();
@@ -68,11 +66,13 @@ public abstract class PersonagemModel extends EntidadeModel{
             aux_y *= Math.cos(Math.PI/4);
             aux_x *= Math.cos(Math.PI/4);
         }
-        if(aux_x != 0 || aux_y != 0)this.SubjectPosicao.notificarObservadores(this.posicao);
         this.posicao.x += aux_x*getVelocidade();
-        this.posicao.y += aux_y*getVelocidade();
         if(ColisionHandler.isColiding(this, "jogopoo.Model.Parede")){
             this.posicao.x -= aux_x*getVelocidade();
+            
+        }
+        this.posicao.y += aux_y*getVelocidade();
+        if(ColisionHandler.isColiding(this, "jogopoo.Model.Parede")){
             this.posicao.y -= aux_y*getVelocidade();
         }
     }

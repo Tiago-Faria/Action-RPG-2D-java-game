@@ -32,8 +32,6 @@ public class Parede implements ObserverColisao,Observer{
     public void colide(ObserverColisao ObjColidido) {}
 
     @Override
-    public void notificar() {
-    Application.bbg.drawImage(new ImageIcon("src/imagens/paris.jpeg").getImage(), (int)inicio.x, (int)inicio.y, Application.Application);
-    }
+    public void notificar() {}
     
 }

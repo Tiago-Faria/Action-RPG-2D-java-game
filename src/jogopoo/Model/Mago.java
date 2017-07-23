@@ -16,10 +16,11 @@ public class Mago extends PersonagemModel{
     public float mana_max;
     public float mana;
     public float mana_regen;
-    public Mago(Updater updt, SubjectPosPers s, Coordenada pos, EntidadeView view,float raio,ColisionHandler col) {
-        super(updt, s, pos, view,raio,col);
+    public Mago(Coordenada pos, EntidadeView view,float raio) {
+        super(pos, view,raio);
         
     }
+
 
     @Override
     void uparNivel() {
