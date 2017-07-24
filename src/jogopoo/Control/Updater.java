@@ -21,8 +21,9 @@ public class Updater implements Subject{
         updaters.remove(o);
     }
     public void notificarObservadores(){
-        for(int i = 0;i < updaters.size();i++){
-            Observer observador = (Observer) updaters.get(i);
+        ArrayList<Observer> updatersCopy = (ArrayList<Observer>) updaters.clone();
+        for(int i = 0;i < updatersCopy.size();i++){
+            Observer observador = (Observer) updatersCopy.get(i);
             observador.notificar();
         }
     }

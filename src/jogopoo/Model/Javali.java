@@ -24,7 +24,7 @@ public class Javali extends NPC{
     private final double distToTrigger = 150;
     private final float dano = 50;
     public Javali(Coordenada pos,Coordenada pers) {
-        super(pos, new EntidadeView(), 50, pers);
+        super(pos, new EntidadeView(), 24, pers);
         
         ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
         imagens.add(new ImageIcon("src/imagens/boar.png"));

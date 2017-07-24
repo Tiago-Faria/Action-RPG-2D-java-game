@@ -62,13 +62,13 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
             double directionX,double directionY,float raio,int efeito){
         
         
-            System.out.println("OLOOUUU");
+            
         this.dmg = dmg;
         this.coordenada = new Coordenada(coordenada.x,coordenada.y);
         this.velocidade = velocidade;
         this.duracao = duracao;
         this.countDuracao = duracao;
-        hitbox = new HitBoxCircle(coordenada,raio);
+        hitbox = new HitBoxCircle(this.coordenada,raio);
         Application.Application.updater.registrarObservador(this);
         Application.colisionHandler.registrarObservador(this);
         
@@ -79,7 +79,6 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
         view = new EntidadeView(sprite);
         this.efeito = efeito;
         
-            System.out.println("OLOOUUU");
     }
     
     public void setDirection(double directionX,double directionY){
@@ -108,15 +107,11 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
                
         if(ObjColidido.getClass().getSuperclass().getName().equalsIgnoreCase("jogopoo.model.NPC"))
         {
-            System.out.println("colidiu");
-            PersonagemModel p = (PersonagemModel) ObjColidido;
+            EntidadeModel p = (EntidadeModel) ObjColidido;
             p.hp -= this.dmg;
-            p.setCanAction(true);
             Application.colisionHandler.removerObservador(this);
             Application.Application.updater.removerObservador(this);
             
-            System.out.println("colidiu");
-            System.out.println("Bola de Fogo acabou"); 
         }
         
         // CRIAR NPC E FUNCAO LEVAR DANO
@@ -133,13 +128,12 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
     public void notificar() {
         this.countDuracao--;
         this.movimentar();
-        System.out.println(this.coordenada.x+"  "+this.coordenada.y);
         view.draw();
         if(this.countDuracao<0)
         {
             Application.colisionHandler.removerObservador(this);
             Application.Application.updater.removerObservador(this);
-            System.out.println("notifica");
+            
             /*destroi objeto*/
         }
     }

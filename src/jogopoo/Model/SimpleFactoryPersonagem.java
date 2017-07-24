@@ -24,7 +24,7 @@ public class SimpleFactoryPersonagem {
             imagens.add(new ImageIcon("src/imagens/Mago.png"));
             Sprite spr = new Sprite(imagens,c);
             view.setSprite(spr);
-            return new Mago( c, view, 50);
+            return new Mago( c, view, 25);
         }
         return null;
     }
