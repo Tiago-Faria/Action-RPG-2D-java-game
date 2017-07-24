@@ -18,7 +18,7 @@ import jogopoo.View.*;
  */
 public class Application extends JFrame implements KeyListener,MouseListener{
     private BufferedImage backBuffer;
-    private boolean gamePaused = true;
+    public boolean gamePaused = true;
     public  static final int FPS = 30;
     public static Updater updater;
     public static ColisionHandler colisionHandler;
@@ -32,6 +32,8 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     private menuPrincipalView menuPrincipal;
     private menuEscolhaPersonagemView menuEscolhaPersonagem;
     private EntidadeView entView;
+    InventarioView i = new InventarioView();
+    InventarioController inv;
     ///testes camera
         private int camerax = 0;
         private int cameray = 0;
@@ -87,8 +89,11 @@ public class Application extends JFrame implements KeyListener,MouseListener{
             if(persModel != null) {
                 menuEscolhaPersonagem.setVisible(false);
                 Javali javali = new Javali(new Coordenada(200,200),persModel.posicao);
+                new Goblin(new Coordenada(250, 250), persModel.posicao);
                 setVisible(true);
                 gamePaused = false;
+
+		 inv = new InventarioController(i, new InventarioModel(persModel));
             }
         }
        
@@ -99,6 +104,7 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         while (true) {
             if (gamePaused) {
                 try {
+                    pausarGame();
                     //desenharMenuPausa();
                     Thread.sleep(1000 / FPS);
                 } catch (InterruptedException ie) {
@@ -151,8 +157,25 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         updater.notificarObservadores();
         colisionHandler.notificarObservadores();
         AtualizarCamera();
+	pausarGame();
        
     }
+
+    public void pausarGame() {
+        if(teclas[KeyEvent.VK_M] && gamePaused == false){
+            gamePaused = true;
+            i.setVisible(true);
+            
+            
+            
+        }
+        if(!i.isVisible()&& teclas[KeyEvent.VK_M] == true) {
+            teclas[KeyEvent.VK_M] = false;
+            gamePaused = false;
+        }
+            
+    }
+
     public void desenharGraficos() {
         Graphics g = getGraphics();//COM g IREMOS DESENHAR O QUE ESTA NO BUFFER NA TELA
        
@@ -231,9 +254,9 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     }
     
     public void InicializarParedes(){
-        new Parede(new Coordenada(0,0),new Coordenada(10,AlturaJanela*3),this.colisionHandler,this.updater);
-        new Parede(new Coordenada(0,0),new Coordenada(ComprimentoJanela*3,10),this.colisionHandler,this.updater);
-        new Parede(new Coordenada(0,AlturaJanela*3 - 10),new Coordenada(ComprimentoJanela*3,AlturaJanela*3),this.colisionHandler,this.updater);
-        new Parede(new Coordenada(ComprimentoJanela*3 -10,0),new Coordenada(ComprimentoJanela*3,AlturaJanela*3),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(0,0),new Coordenada(10,AlturaJanela*3),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(0,0),new Coordenada(ComprimentoJanela*3,10),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(0,AlturaJanela*3 - 10),new Coordenada(ComprimentoJanela*3,AlturaJanela*3),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(ComprimentoJanela*3 -10,0),new Coordenada(ComprimentoJanela*3,AlturaJanela*3),this.colisionHandler,this.updater);
     }
 }

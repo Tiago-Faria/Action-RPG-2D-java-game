@@ -6,6 +6,7 @@
 package jogopoo.Model;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import jogopoo.Control.*;
 import jogopoo.View.EntidadeView;
 
@@ -19,12 +20,18 @@ public abstract class PersonagemModel extends EntidadeModel{
     public float pc_crit;
     public int xp;
     public float hp_regen;
-    public boolean canCast;
-    private Habilidades MagiaQ;
+    public boolean canAction = true;
+    private Habilidades MagiaQ = new HabilidadeBolaDeFogo();
     private Habilidades MagiaE;
+    public double lastDirectionX= 0;
+    public double lastDirectionY= 1;
+    public Inventario inventario;
+    public Equipavel[] equipavel;
 
     public PersonagemModel(Coordenada pos, EntidadeView view,float raio) {
         super(pos, view,raio);
+        equipavel = new Equipavel[3];
+        inventario = new Inventario();
     }
     public void update(){
         defender();
@@ -41,9 +48,16 @@ public abstract class PersonagemModel extends EntidadeModel{
         if(isDefending)return this.defesa;
         else return this.defesa/2;
     }
+    
+    public ArrayList<Item> getItem() {
+        return inventario.getItems();
+    }
+    
+    
+    
     public void usarHabilidade()
     {
-        if(this.getCanCast()){
+        if(this.getCanAction()){
             if(Application.teclas[KeyEvent.VK_Q]){
                 this.MagiaQ.usarHabilidade(this);
             }
@@ -66,15 +80,57 @@ public abstract class PersonagemModel extends EntidadeModel{
             aux_y *= Math.cos(Math.PI/4);
             aux_x *= Math.cos(Math.PI/4);
         }
+        
+        double pX = this.posicao.x;
+        double pY = this.posicao.y;
+        
+        
         this.posicao.x += aux_x*getVelocidade();
-        if(ColisionHandler.isColiding(this, "jogopoo.Model.Parede")){
+        if(ColisionHandler.isColiding(this, "jogopoo.Model.ObjetoParede")){
             this.posicao.x -= aux_x*getVelocidade();
             
         }
         this.posicao.y += aux_y*getVelocidade();
-        if(ColisionHandler.isColiding(this, "jogopoo.Model.Parede")){
+        if(ColisionHandler.isColiding(this, "jogopoo.Model.ObjetoParede")){
             this.posicao.y -= aux_y*getVelocidade();
         }
+        
+        if(this.posicao.x > pX){
+            this.lastDirectionX = 1;
+            if(this.posicao.y> pY)
+                this.lastDirectionY = 1;
+            else if(this.posicao.y<pY)
+                this.lastDirectionY = -1;
+            else
+                this.lastDirectionY = 0;
+            
+        }else if(this.posicao.x < pX){
+            this.lastDirectionX = -1;
+            if(this.posicao.y> pY)this.lastDirectionY = 1;
+            else if(this.posicao.y<pY)
+                this.lastDirectionY = -1;
+            else
+                this.lastDirectionY = 0;
+        }
+        if(this.posicao.y > pY){
+            this.lastDirectionY = 1;
+            if(this.posicao.x> pX)
+                this.lastDirectionX = 1;
+            else if(this.posicao.x<pX)
+                this.lastDirectionX = -1;
+            else
+                this.lastDirectionX = 0;
+            
+        }else if(this.posicao.y < pY){
+            this.lastDirectionY = -1;
+            if(this.posicao.x> pX)
+                this.lastDirectionX = 1;
+            else if(this.posicao.x<pX)
+                this.lastDirectionX = -1;
+            else
+                this.lastDirectionX = 0;
+        }    
+        
     }
 
     public Habilidades getMagiaQ() {
@@ -97,11 +153,20 @@ public abstract class PersonagemModel extends EntidadeModel{
     public void setHp_regen(float hp_regen) {
         this.hp_regen = hp_regen;
     }
+
+    public Inventario getInventario() {
+        return inventario;
+    }
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
     
     
-    
-    public boolean getCanCast(){
-        return canCast;
+    public void setCanAction(boolean b){
+        this.canAction = b;
+    }
+    public boolean getCanAction(){
+        return this.canAction;
     }
     public void setVelocidade(float velocidade) {
         this.velocidade = velocidade;
@@ -114,6 +179,11 @@ public abstract class PersonagemModel extends EntidadeModel{
         this.hp += this.hp_regen;
         if(hp > hp_max)hp = hp_max;
     }
+    
+    public void regenerarVida(int hp){
+        this.hp += hp;
+        if(this.hp > this.hp_max)this.hp = hp_max;
+    }
     public void gainXp(int qtd){
         xp  += qtd;
         if(nivel < 5 && xp >= XPNecessario[nivel]){
@@ -122,6 +192,14 @@ public abstract class PersonagemModel extends EntidadeModel{
             uparNivel();
         }
     }
+
+    public void setLoot(Item item, int xp) {
+        gainXp(xp);
+        inventario.adicionarItem(item);
+    }
     abstract void uparNivel();
     public void hook(){}
+    
+    
+    
 }

@@ -1,5 +1,10 @@
 package jogopoo.Model;
 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import jogopoo.Control.Application;
+import jogopoo.Control.Observer;
+import jogopoo.View.EntidadeView;
 import jogopoo.View.Sprite;
 
 /*
@@ -13,16 +18,28 @@ import jogopoo.View.Sprite;
  *
  * @author Marcio55
  */
-public abstract class Habilidades {
+public abstract class Habilidades implements Observer{
     
-    private int cooldown = 0;
-    protected Sprite sprite; 
+    protected float dmg;
+    protected int duracao;
+    protected float raio = 10;
+    protected float velocidaDoDisparo;
+    protected int cooldown = 0;
+    ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
+    protected Sprite sprite;
+    protected int efeito;
     
-    
-    public abstract void usarHabilidade(PersonagemModel personagem);
+    public abstract void usarHabilidade(PersonagemModel  personagem);
 
     public void update(){
-        if(cooldown>0)cooldown--;
+        //if(cooldown>0){
+         //   cooldown--;
+        //}
+    }
+    public void notificar(){
+        if(cooldown>0){
+            cooldown--;
+        }
     }
     
     public int getCooldown(){

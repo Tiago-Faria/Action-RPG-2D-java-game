@@ -1,5 +1,8 @@
 package jogopoo.Model;
 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import jogopoo.View.EntidadeView;
 import jogopoo.View.Sprite;
 
 public abstract class Arma extends Equipavel {
@@ -11,6 +14,7 @@ public abstract class Arma extends Equipavel {
     protected float raio;
     protected float velocidadeDisparo;
     protected Sprite sprite;
+    ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
     
     public Arma(int nivel) {
         super(nivel);

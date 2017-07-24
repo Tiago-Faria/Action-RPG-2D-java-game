@@ -46,6 +46,16 @@ public class NPC extends EntidadeModel{
         Application.Application.colisionHandler.removerObservador(this);
                 
     }
+
+    @Override
+    public void setHitBoxColided(HitBox hitBox) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HitBox getHitBoxColided() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

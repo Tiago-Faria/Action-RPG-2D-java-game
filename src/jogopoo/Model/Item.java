@@ -1,9 +1,11 @@
 package jogopoo.Model;
 
+import jogopoo.View.Sprite;
+
 public class Item {
     
     private String nome;
-    private int espaco;
+    private Sprite sprite;
 
     public String getNome() {
         return nome;
@@ -13,11 +15,7 @@ public class Item {
         this.nome = nome;
     }
 
-    public int getEspaco() {
-        return espaco;
-    }
-
-    public void setEspaco(int espaco) {
-        this.espaco = espaco;
+    public Sprite getSprite() {
+        return sprite;
     }
 }

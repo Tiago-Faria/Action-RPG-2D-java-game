@@ -5,22 +5,38 @@
  */
 package jogopoo.Model;
 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import jogopoo.Control.Application;
+import jogopoo.View.Sprite;
+
 /**
  *
  * @author Marcio55
  */
-public class HabilidadeBolaDeFogo extends HabilidadeMago{
-     
+public class HabilidadeBolaDeFogo extends HabilidadesMago{
+    
+        public HabilidadeBolaDeFogo() {
+        Application.Application.updater.registrarObservador(this);
+        super.duracao = 20;
+        super.velocidaDoDisparo = 7;
+        
+        imagens.add(new ImageIcon("src/imagens/fogo1.png"));
+        imagens.add(new ImageIcon("src/imagens/fogo2.png"));
+        imagens.add(new ImageIcon("src/imagens/fogo3.png"));
+        }
+      
+    
+    
     public void usarHabilidade(PersonagemModel  personagem)
     {
-        Mago m = (Mago)personagem;
-        if(super.getCooldown() == 0){
-            if(m.mana >= super.manaNecessaria)
-            {
-                Projetil p = new Projetil(personagem.posicao, dmg, sprite, velocidadeDisparo, duracao, raio);
-                
-            }
+        
+        if(super.CanUseHabilidade(personagem)){
+            super.cooldown = this.duracao;
+            ObjetoProjetil p = new ObjetoProjetil(personagem.posicao, dmg,imagens, velocidaDoDisparo, duracao,
+                    personagem.lastDirectionX,personagem.lastDirectionY, raio,efeito);
         }
     }
+
     
 }
