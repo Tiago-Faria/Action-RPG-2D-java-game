@@ -19,7 +19,7 @@ import jogopoo.View.*;
 public class Application extends JFrame implements KeyListener,MouseListener{
     private BufferedImage backBuffer;
     private boolean gamePaused = true;
-    private final int FPS = 30;
+    public  static final int FPS = 30;
     public static Updater updater;
     public static ColisionHandler colisionHandler;
     private static final int AlturaJanela = 450;
@@ -86,6 +86,7 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         public void actionPerformed(ActionEvent e) {
             if(persModel != null) {
                 menuEscolhaPersonagem.setVisible(false);
+                Javali javali = new Javali(new Coordenada(200,200),persModel.posicao);
                 setVisible(true);
                 gamePaused = false;
             }
@@ -143,10 +144,12 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         entView = new EntidadeView();
        
         InicializarParedes();
+        
        
     }
     public void atualizar() {
         updater.notificarObservadores();
+        colisionHandler.notificarObservadores();
         AtualizarCamera();
        
     }

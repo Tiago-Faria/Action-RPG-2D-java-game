@@ -59,7 +59,7 @@ public class HitBoxSquare implements HitBox{
     }
 
     public boolean isColiding(HitBox hitBox) {
-        System.out.println("classe: "+hitBox.getClass().getName());
+        
         if(hitBox.getClass().getName().equalsIgnoreCase("jogopoo.Model.HitBoxCircle")){
             return isColiding((HitBoxCircle)hitBox);
         }

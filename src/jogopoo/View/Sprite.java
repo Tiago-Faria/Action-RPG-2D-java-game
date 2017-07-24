@@ -27,6 +27,7 @@ public class Sprite{
     }
     public void draw(Graphics bbg,Application a){
         if(++index >= imagens.size())index = 0;
+        
         bbg.drawImage(imagens.get(index).getImage(),(int)Posicao.x,(int)Posicao.y,a);
     }
     

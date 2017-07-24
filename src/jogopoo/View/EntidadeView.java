@@ -18,8 +18,8 @@ public class EntidadeView {
     }
     public EntidadeView(){}
     public void draw(){
-        
         this.sprite.draw(Application.bbg, Application.Application);
+        
     }
     public void setSprite(Sprite s){
         this.sprite = s;

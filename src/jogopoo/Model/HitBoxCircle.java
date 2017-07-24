@@ -29,7 +29,6 @@ public class HitBoxCircle implements HitBox{
 
     @Override
     public boolean isColiding(HitBox hitBox) {
-        System.out.println("classe: "+ hitBox.getClass().getName());
         if(hitBox.getClass().getName().equalsIgnoreCase("jogopoo.model.HitBoxCircle")){
             return isColiding((HitBoxCircle)hitBox);
         }
