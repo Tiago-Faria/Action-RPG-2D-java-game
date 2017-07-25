@@ -18,13 +18,28 @@ import jogopoo.View.Sprite;
  * @author tiago
  */
 public class SimpleFactoryPersonagem {
+    
     public static PersonagemModel CriarPersonagem(String classe, EntidadeView view,Coordenada c){
         ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
         if("Mago".equals(classe)){
             imagens.add(new ImageIcon("src/imagens/Mago.png"));
             Sprite spr = new Sprite(imagens,c);
             view.setSprite(spr);
-            return new Mago( c, view, 25);
+            return new Mago( c, view);
+        }
+        if("Guerreiro".equals(classe)){
+            
+            imagens.add(new ImageIcon("src/imagens/Guerreiro.png"));
+            Sprite spr = new Sprite(imagens,c);
+            view.setSprite(spr);
+            return new Guerreiro( c, view);
+        }
+        if("Arqueiro".equals(classe)){
+            
+            imagens.add(new ImageIcon("src/imagens/Arqueiro.png"));
+            Sprite spr = new Sprite(imagens,c);
+            view.setSprite(spr);
+            return new Arqueiro( c, view);
         }
         return null;
     }

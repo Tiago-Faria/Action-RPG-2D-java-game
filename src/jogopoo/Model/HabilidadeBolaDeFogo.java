@@ -15,12 +15,12 @@ import jogopoo.View.Sprite;
  * @author Marcio55
  */
 public class HabilidadeBolaDeFogo extends HabilidadesMago{
-    
+        
         public HabilidadeBolaDeFogo() {
         Application.Application.updater.registrarObservador(this);
         super.duracao = 20;
         super.velocidaDoDisparo = 7;
-        
+        this.raio = 8;
         imagens.add(new ImageIcon("src/imagens/fogo1.png"));
         imagens.add(new ImageIcon("src/imagens/fogo2.png"));
         imagens.add(new ImageIcon("src/imagens/fogo3.png"));

@@ -27,6 +27,7 @@ public abstract class PersonagemModel extends EntidadeModel{
     public double lastDirectionY= 1;
     public Inventario inventario;
     public Equipavel[] equipavel;
+    public int CooldownAtaque;
 
     public PersonagemModel(Coordenada pos, EntidadeView view,float raio) {
         super(pos, view,raio);
@@ -34,12 +35,15 @@ public abstract class PersonagemModel extends EntidadeModel{
         inventario = new Inventario();
     }
     public void update(){
+        DiminuiCooldown();
+        atacar();
         defender();
         movimentar();
         regenerarVida();
         usarHabilidade();
         hook();
     }
+    public abstract void atacar();
     public void defender(){
         isDefending = Application.teclas[KeyEvent.VK_SPACE];
     }
@@ -76,9 +80,14 @@ public abstract class PersonagemModel extends EntidadeModel{
         if(Application.teclas[KeyEvent.VK_D])aux_x++;
         if(Application.teclas[KeyEvent.VK_S])aux_y++;
         
+        if(aux_x != 0 || aux_y != 0){
+            lastDirectionX = aux_x;
+            lastDirectionY = aux_y;
+        }
+        
         if(aux_x != 0 && aux_y != 0){
-            aux_y *= Math.cos(Math.PI/4);
-            aux_x *= Math.cos(Math.PI/4);
+            aux_y *= 0.70710678118;
+            aux_x *= 0.70710678118;
         }
         
         double pX = this.posicao.x;
@@ -94,42 +103,6 @@ public abstract class PersonagemModel extends EntidadeModel{
         if(ColisionHandler.isColiding(this, "jogopoo.Model.ObjetoParede")){
             this.posicao.y -= aux_y*getVelocidade();
         }
-        
-        if(this.posicao.x > pX){
-            this.lastDirectionX = 1;
-            if(this.posicao.y> pY)
-                this.lastDirectionY = 1;
-            else if(this.posicao.y<pY)
-                this.lastDirectionY = -1;
-            else
-                this.lastDirectionY = 0;
-            
-        }else if(this.posicao.x < pX){
-            this.lastDirectionX = -1;
-            if(this.posicao.y> pY)this.lastDirectionY = 1;
-            else if(this.posicao.y<pY)
-                this.lastDirectionY = -1;
-            else
-                this.lastDirectionY = 0;
-        }
-        if(this.posicao.y > pY){
-            this.lastDirectionY = 1;
-            if(this.posicao.x> pX)
-                this.lastDirectionX = 1;
-            else if(this.posicao.x<pX)
-                this.lastDirectionX = -1;
-            else
-                this.lastDirectionX = 0;
-            
-        }else if(this.posicao.y < pY){
-            this.lastDirectionY = -1;
-            if(this.posicao.x> pX)
-                this.lastDirectionX = 1;
-            else if(this.posicao.x<pX)
-                this.lastDirectionX = -1;
-            else
-                this.lastDirectionX = 0;
-        }    
         
     }
 
@@ -200,6 +173,11 @@ public abstract class PersonagemModel extends EntidadeModel{
     abstract void uparNivel();
     public void hook(){}
     
-    
+    public void morrer(){};
+
+    private void DiminuiCooldown() {
+        if(CooldownAtaque > 0)CooldownAtaque--;
+        
+    }
     
 }

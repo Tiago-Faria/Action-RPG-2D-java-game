@@ -39,19 +39,19 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
             float velocidade,int duracao,
             double directionX,double directionY,float raio){
         
-        
         this.dmg = dmg;
         this.coordenada = new Coordenada(coordenada.x,coordenada.y);
         this.velocidade = velocidade;
         this.duracao = duracao;
         this.countDuracao = duracao;
-        hitbox = new HitBoxCircle(coordenada,raio);
+        hitbox = new HitBoxCircle(this.coordenada,raio);
         Application.Application.updater.registrarObservador(this);
         Application.colisionHandler.registrarObservador(this);
         
         Sprite sprite = new Sprite(imagens, this.coordenada);
-            
+        
         setDirection(directionX,directionY);
+        
         view = new EntidadeView(sprite);
         
             
@@ -103,7 +103,6 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
     
     @Override
     public void colide(ObserverColisao ObjColidido) {
-         System.out.println(ObjColidido.getClass().getName());
                
         if(ObjColidido.getClass().getSuperclass().getName().equalsIgnoreCase("jogopoo.model.NPC"))
         {

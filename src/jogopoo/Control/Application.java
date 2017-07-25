@@ -128,8 +128,8 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         menuPrincipal.setVisible(true);
         menuEscolhaPersonagem = new menuEscolhaPersonagemView();
         menuEscolhaPersonagem.addActionListenerMage(new ChooseCharacterMage());
-        menuEscolhaPersonagem.addActionListenerMage(new ChooseCharacterWarrior());
-        menuEscolhaPersonagem.addActionListenerMage(new ChooseCharacterArcher());
+        menuEscolhaPersonagem.addActionListenerWarrior(new ChooseCharacterWarrior());
+        menuEscolhaPersonagem.addActionListenerArcher(new ChooseCharacterArcher());
        
         menuEscolhaPersonagem.addActionListenerGame(new GameInit());
        
