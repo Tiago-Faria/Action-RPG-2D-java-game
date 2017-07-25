@@ -256,15 +256,15 @@ public class InventarioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(equipItem);
-        equipItem.setBounds(40, 290, 65, 29);
+        equipItem.setBounds(30, 290, 100, 29);
 
         removeItem.setText("Remover");
         getContentPane().add(removeItem);
-        removeItem.setBounds(140, 290, 80, 29);
+        removeItem.setBounds(130, 290, 100, 29);
 
         consumeItem.setText("Consumir");
         getContentPane().add(consumeItem);
-        consumeItem.setBounds(90, 330, 80, 29);
+        consumeItem.setBounds(70, 330, 120, 29);
 
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/inventory.jpg"))); // NOI18N
         jLabel36.setName(""); // NOI18N

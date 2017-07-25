@@ -24,6 +24,7 @@ public class HabilidadeBolaDeFogo extends HabilidadesMago{
         imagens.add(new ImageIcon("src/imagens/fogo1.png"));
         imagens.add(new ImageIcon("src/imagens/fogo2.png"));
         imagens.add(new ImageIcon("src/imagens/fogo3.png"));
+        imagens.add(new ImageIcon("src/imagens/fogo4.png"));
         }
       
     

@@ -179,5 +179,13 @@ public abstract class PersonagemModel extends EntidadeModel{
         if(CooldownAtaque > 0)CooldownAtaque--;
         
     }
+
+    public float getDano() {
+        return dano;
+    }
+
+    public void setDano(float dano) {
+        this.dano = dano;
+    }
     
 }

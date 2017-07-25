@@ -10,7 +10,7 @@ public abstract class Arma extends Equipavel {
     private float dano;
     private float vel_ataque;
     protected int duracao;
-    private int cooldown;
+    protected int cooldown;
     protected float raio;
     protected float velocidadeDisparo;
     protected Sprite sprite;
@@ -47,5 +47,5 @@ public abstract class Arma extends Equipavel {
         this.cooldown = cooldown;
     }
     
-    public abstract void usarArma(PersonagemModel ataque);
+    public abstract void usarArma(PersonagemModel ataque,int direcaox,int direcaoy,float dano);
 }

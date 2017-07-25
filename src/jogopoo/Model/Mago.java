@@ -32,6 +32,7 @@ public class Mago extends PersonagemModel{
         super.velocidade = 5;
         super.xp = 0;
         this.mana_regen = (float) 0.01;
+        this.inventario.adicionarItem(new ArmaMagoVarinha(0));
     }
 
 
@@ -72,14 +73,10 @@ public class Mago extends PersonagemModel{
             if(Application.teclas[KeyEvent.VK_DOWN])aux_y++;
 
             if(aux_x != 0 || aux_y != 0){
-                CooldownAtaque = (int) (60 - getVel_ataque());
-                int AtaqueDirectionX = aux_x;
-                int AtaqueDirectionY = aux_y;
-                ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
-                imagens.add(new ImageIcon("src/imagens/fogo1.png"));
-                imagens.add(new ImageIcon("src/imagens/fogo2.png"));
-                imagens.add(new ImageIcon("src/imagens/fogo3.png"));
-                new ObjetoProjetil(this.posicao, this.dano, imagens,10, 60,AtaqueDirectionX, AtaqueDirectionY,8 );
+                Arma arma = (Arma)equipavel[0];
+                float dano = getDano();
+                if(Math.random() < 100/getPc_crit())dano *= 2;
+                if(arma != null)arma.usarArma((PersonagemModel)this,aux_x,aux_y, dano);
             }
         }
      
