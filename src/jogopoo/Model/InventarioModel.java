@@ -60,6 +60,7 @@ public class InventarioModel {
     }
     
     public ArrayList<Item> retornaItems() {
+        
         return this.personagem.inventario.getItems();
     }
 }

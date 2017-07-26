@@ -33,6 +33,7 @@ public class Mago extends PersonagemModel{
         super.xp = 0;
         this.mana_regen = (float) 0.01;
         this.inventario.adicionarItem(new ArmaMagoVarinha(0));
+        this.inventario.adicionarItem(new ArmaMagoVarinha(4));
     }
 
 

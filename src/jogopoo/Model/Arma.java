@@ -13,7 +13,7 @@ public abstract class Arma extends Equipavel {
     protected int cooldown;
     protected float raio;
     protected float velocidadeDisparo;
-    protected Sprite sprite;
+    
     ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
     
     public Arma(int nivel) {

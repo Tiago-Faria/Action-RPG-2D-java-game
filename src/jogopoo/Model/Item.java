@@ -5,7 +5,7 @@ import jogopoo.View.Sprite;
 public class Item {
     
     private String nome;
-    private Sprite sprite;
+    protected Sprite sprite;
 
     public String getNome() {
         return nome;

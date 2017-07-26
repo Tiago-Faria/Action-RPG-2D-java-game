@@ -14,5 +14,10 @@ public class ArmaGuerreiroFacasDeArremesso extends ArmaArqueiro {
             this.setCooldown(2);
         }
     }
+
+    @Override
+    public void usarArma(PersonagemModel ataque, int direcaox, int direcaoy, float dano) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

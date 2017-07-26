@@ -361,6 +361,7 @@ public class InventarioView extends javax.swing.JFrame {
        for(int i = 0; i < 30; i++) {
            if(i < items.size()) {
                this.listaSlots.get(i).setIcon(items.get(i).getSprite().getFirstImage());
+               
            }else {
                listaSlots.get(i).setIcon(null);
            }
@@ -368,7 +369,7 @@ public class InventarioView extends javax.swing.JFrame {
        
        for(int i = 0; i < 3; i++) {
            if(equipavel[i] != null) {
-               listaSlots.get(30 + i).setIcon(equipavel[30 + i].getSprite().getFirstImage());
+               listaSlots.get(30 + i).setIcon(equipavel[i].getSprite().getFirstImage());
            }else {
                listaSlots.get(30 + i).setIcon(null);
            }

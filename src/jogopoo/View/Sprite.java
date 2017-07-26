@@ -32,7 +32,10 @@ public class Sprite{
     }
     
     public ImageIcon getFirstImage() {
-        return imagens.get(0);
+       
+        if(imagens.size() > 0)return imagens.get(0);
+        return null;
+        
     }
     
 }

@@ -1,6 +1,7 @@
 package jogopoo.Model;
 
 import java.util.ArrayList;
+import jogopoo.Control.Application;
 
 public class Inventario {
     
@@ -12,7 +13,7 @@ public class Inventario {
         if (this.ocupado + 1 <= this.tam_max) {
             this.items.add(item);
             this.ocupado++;
-        }
+        }       
     }
     
     public ArrayList<Item> getItems() {

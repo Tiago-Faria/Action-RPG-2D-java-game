@@ -15,5 +15,10 @@ public class ArmaGuerreiroEspada extends ArmaGuerreiro {
         }
         
     }
+
+    @Override
+    public void usarArma(PersonagemModel ataque, int direcaox, int direcaoy, float dano) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

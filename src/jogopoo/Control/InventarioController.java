@@ -34,6 +34,7 @@ public class InventarioController{
         this.theView.equiparItemButton(new equipItem());
         this.theView.removerItemButton(new removeItem());
         this.theView.setLabelsButton(new selectItem());
+        this.theView.addWindowListener(new updateWindow());
 
     }
     
@@ -201,5 +202,43 @@ public class InventarioController{
             numSlot = -1;
         }
         
+    }
+    class updateWindow implements WindowListener {
+ 
+        @Override
+        public void windowOpened(WindowEvent e) {
+            theView.updateView(theModel.retornaEquipavel(), theModel.retornaItems());
+        }
+ 
+        @Override
+        public void windowClosing(WindowEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+ 
+        @Override
+        public void windowClosed(WindowEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+ 
+        @Override
+        public void windowIconified(WindowEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+ 
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+ 
+        @Override
+        public void windowActivated(WindowEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+ 
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+       
     }
 }

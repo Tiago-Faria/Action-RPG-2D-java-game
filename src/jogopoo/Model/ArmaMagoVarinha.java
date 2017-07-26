@@ -8,10 +8,10 @@ public class ArmaMagoVarinha extends ArmaMago {
     
     public ArmaMagoVarinha(int nivel) {
         super(nivel);
-        this.velocidadeDisparo = 10;
+        this.velocidadeDisparo = (float) (7 + 0.8*nivel);
         ArrayList<ImageIcon> iconeArma = new ArrayList<ImageIcon>();
         iconeArma.add(new ImageIcon("src/imagens/varinha.png"));
-        this.sprite= new Sprite(imagens,new Coordenada(50, 50));
+        this.sprite= new Sprite(iconeArma,new Coordenada(50, 50));
         
     }
     
@@ -25,7 +25,7 @@ public class ArmaMagoVarinha extends ArmaMago {
 
     @Override
     public void usarArma(PersonagemModel personagem, int direcaox, int direcaoy,float dano) {
-        personagem.CooldownAtaque = (int) (60 - personagem.getVel_ataque());
+        personagem.CooldownAtaque = (int) (60 - personagem.getVel_ataque() - this.velocidadeDisparo);
                 ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
                 imagens.add(new ImageIcon("src/imagens/fogo1.png"));
                 imagens.add(new ImageIcon("src/imagens/fogo2.png"));
