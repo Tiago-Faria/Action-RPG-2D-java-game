@@ -256,15 +256,15 @@ public class InventarioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(equipItem);
-        equipItem.setBounds(30, 290, 100, 29);
+        equipItem.setBounds(30, 290, 100, 23);
 
         removeItem.setText("Remover");
         getContentPane().add(removeItem);
-        removeItem.setBounds(130, 290, 100, 29);
+        removeItem.setBounds(130, 290, 100, 23);
 
         consumeItem.setText("Consumir");
         getContentPane().add(consumeItem);
-        consumeItem.setBounds(70, 330, 120, 29);
+        consumeItem.setBounds(70, 330, 120, 23);
 
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/inventory.jpg"))); // NOI18N
         jLabel36.setName(""); // NOI18N
@@ -354,7 +354,6 @@ public class InventarioView extends javax.swing.JFrame {
     private javax.swing.JLabel slot8;
     private javax.swing.JLabel slot9;
     // End of variables declaration//GEN-END:variables
-
     
     
     public void updateView(Equipavel[] equipavel, ArrayList<Item> items) {

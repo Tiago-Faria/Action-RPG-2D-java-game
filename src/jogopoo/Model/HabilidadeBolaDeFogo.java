@@ -35,7 +35,7 @@ public class HabilidadeBolaDeFogo extends HabilidadesMago{
         if(super.CanUseHabilidade(personagem)){
             super.cooldown = this.duracao;
             ObjetoProjetil p = new ObjetoProjetil(personagem.posicao, dmg,imagens, velocidaDoDisparo, duracao,
-                    personagem.lastDirectionX,personagem.lastDirectionY, raio,efeito);
+                    personagem.lastDirectionX,personagem.lastDirectionY, raio,1);
         }
     }
 

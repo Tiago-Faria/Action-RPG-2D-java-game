@@ -12,7 +12,7 @@ import jogopoo.Control.*;
  *
  * @author tiago
  */
-public class ObjetoParede implements ObserverColisao,Observer{
+public class ObjetoParede extends ObjetoConcreto {
     public Coordenada inicio;
     public Coordenada fim;
     private HitBoxSquare hitbox;
@@ -27,13 +27,6 @@ public class ObjetoParede implements ObserverColisao,Observer{
     @Override
     public HitBox getHitBox() {
         return (HitBox)this.hitbox;
-    }
-    @Override
-    public void setHitBoxColided(HitBox hitbox) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    public HitBox getHitBoxColided(){
-        return null;
     }
 
     @Override

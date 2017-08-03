@@ -22,8 +22,8 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     public  static final int FPS = 30;
     public static Updater updater;
     public static ColisionHandler colisionHandler;
-    private static final int AlturaJanela = 450;
-    private static final int ComprimentoJanela = 550;
+    public static final int AlturaJanela = 450;
+    public static final int ComprimentoJanela = 550;
     public static boolean teclas[] = new boolean[1024];
     public static boolean mouse = false;
     public static Application Application;
@@ -32,6 +32,7 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     private menuPrincipalView menuPrincipal;
     private menuEscolhaPersonagemView menuEscolhaPersonagem;
     private EntidadeView entView;
+    private static boolean Terminar = false;
     InventarioView i = new InventarioView();
     InventarioController inv;
     ///testes camera
@@ -42,8 +43,26 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     public static void main(String[] args)  {
     Application.Application = new Application();
     Application.Mainloop();
+    System.exit(1);
     }
-   
+    public static void Exit(){
+        Terminar = true;
+    }
+    private void DesenharUI(Graphics g) {
+        PersonagemMago m;
+        PersonagemArqueiro a;
+        g.drawString("level: "+ persModel.nivel, 0, AlturaJanela-49);
+        g.drawString("HP:"+persModel.xp+"/"+persModel.XPNecessario[persModel.nivel], 0, AlturaJanela-31);
+        g.drawString("HP:"+persModel.getHp()+"/"+persModel.getHp_max(), 0, AlturaJanela-18);
+        if(persModel.getClass().getName().equalsIgnoreCase("jogopoo.model.PersonagemMago")){
+            m = (PersonagemMago)persModel;
+            g.drawString("MP:"+m.getMana()+"/"+m.getMana_max(), 0, AlturaJanela-5);
+        }
+        if(persModel.getClass().getName().equalsIgnoreCase("jogopoo.model.PersonagemArqueiro")){
+            a = (PersonagemArqueiro)persModel;
+            g.drawString("MP:"+a.getMana()+"/"+a.getMana_max(), 0, AlturaJanela-5);
+        }
+    }
     class PlayButtonListener implements ActionListener {
  
         @Override
@@ -59,7 +78,14 @@ public class Application extends JFrame implements KeyListener,MouseListener{
  
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(persModel != null) {
+                updater.removerObservador(persModel);
+                colisionHandler.removerObservador(persModel);
+            }
              persModel = SimpleFactoryPersonagem.CriarPersonagem("Mago", entView,new Coordenada(150,150));
+             SimpleFactoryHabilidades.cleanHabilidades();
+             SimpleFactoryHabilidades.getHabilidadeDisponivel(persModel.getClass().getName());
+             menuEscolhaPersonagem.updateCheckbox();
         }
        
     }
@@ -68,7 +94,14 @@ public class Application extends JFrame implements KeyListener,MouseListener{
  
         @Override
         public void actionPerformed(ActionEvent e) {
-             persModel = SimpleFactoryPersonagem.CriarPersonagem("Guerreiro", entView,new Coordenada(50,50));
+            if(persModel != null) {
+                updater.removerObservador(persModel);
+                colisionHandler.removerObservador(persModel);
+            }
+            persModel = SimpleFactoryPersonagem.CriarPersonagem("Guerreiro", entView,new Coordenada(50,50));
+            SimpleFactoryHabilidades.cleanHabilidades();
+            SimpleFactoryHabilidades.getHabilidadeDisponivel(persModel.getClass().getName());            
+            menuEscolhaPersonagem.updateCheckbox();
         }
        
     }
@@ -77,7 +110,14 @@ public class Application extends JFrame implements KeyListener,MouseListener{
  
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(persModel != null) {
+                updater.removerObservador(persModel);
+                colisionHandler.removerObservador(persModel);
+            }
              persModel = SimpleFactoryPersonagem.CriarPersonagem("Arqueiro", entView,new Coordenada(50,50));
+             SimpleFactoryHabilidades.cleanHabilidades();
+             SimpleFactoryHabilidades.getHabilidadeDisponivel(persModel.getClass().getName());
+             menuEscolhaPersonagem.updateCheckbox();
         }
        
     }
@@ -86,14 +126,21 @@ public class Application extends JFrame implements KeyListener,MouseListener{
  
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(persModel != null) {
+            facadeCriarJogo facade = new facadeCriarJogo(colisionHandler, updater,persModel);
+            
+            if(persModel != null && menuEscolhaPersonagem.getNumHability() >= 2) {
                 menuEscolhaPersonagem.setVisible(false);
-                Javali javali = new Javali(new Coordenada(200,200),persModel.posicao);
-                new Goblin(new Coordenada(250, 250), persModel.posicao);
+                facade.CriarJogo();
                 setVisible(true);
                 gamePaused = false;
+                int[] habilities = new int[2];
+                
+                habilities = menuEscolhaPersonagem.getHability();
+                
 
 		 inv = new InventarioController(i, new InventarioModel(persModel));
+                 persModel.setMagiaQ(Habilidades.habilidadesDisponiveis.get(habilities[0]));
+                 persModel.setMagiaE(Habilidades.habilidadesDisponiveis.get(habilities[1]));
             }
         }
        
@@ -101,7 +148,7 @@ public class Application extends JFrame implements KeyListener,MouseListener{
    
     public void Mainloop() {
         inicializar();
-        while (true) {
+        while (!Terminar) {
             if (gamePaused) {
                 try {
                     pausarGame();
@@ -141,7 +188,7 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);
-        backBuffer = new BufferedImage(3*ComprimentoJanela, 3*AlturaJanela, BufferedImage.TYPE_INT_RGB);
+        backBuffer = new BufferedImage(4*ComprimentoJanela, 4*AlturaJanela, BufferedImage.TYPE_INT_RGB);
         updater = new Updater();
         colisionHandler = new ColisionHandler();
        
@@ -181,14 +228,15 @@ public class Application extends JFrame implements KeyListener,MouseListener{
        
         //AQUI ESTAMOS DESENHANDO O BUFFER NA TELA,    
         g.drawImage(backBuffer, -camerax, -cameray, this);
+        DesenharUI(g);
         desenharFundo(bbg);
     }
  
     public void desenharFundo(Graphics bbg) {
         Image backGround = new ImageIcon("src/imagens/backTile.png").getImage();
-        bbg.clearRect(0,0,ComprimentoJanela*3, 3*AlturaJanela);
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        bbg.clearRect(0,0,ComprimentoJanela*4, 4*AlturaJanela);
+        for (int i = 0; i < 42; i++) {
+            for (int j = 0; j < 42; j++) {
                 bbg.drawImage(backGround, i*55, j*44,this);
                 //bbg.drawImage(backGround, i * janelaW / 10, j * janelaH / 10, this);
             }
@@ -231,8 +279,8 @@ public class Application extends JFrame implements KeyListener,MouseListener{
         this.cameray = (int) this.persModel.posicao.y - AlturaJanela/2 + 25;
         if(camerax<0)camerax=0;
         if(cameray<0)cameray=0;
-        if(camerax + ComprimentoJanela > 3*ComprimentoJanela)camerax = 2*ComprimentoJanela;
-        if(cameray + AlturaJanela > 3*AlturaJanela)cameray = 2*AlturaJanela;
+        if(camerax + ComprimentoJanela > 4*ComprimentoJanela)camerax = 3*ComprimentoJanela;
+        if(cameray + AlturaJanela > 4*AlturaJanela)cameray = 3*AlturaJanela;
        
     }
    
@@ -254,9 +302,9 @@ public class Application extends JFrame implements KeyListener,MouseListener{
     }
     
     public void InicializarParedes(){
-        new ObjetoParede(new Coordenada(0,0),new Coordenada(10,AlturaJanela*3),this.colisionHandler,this.updater);
-        new ObjetoParede(new Coordenada(0,0),new Coordenada(ComprimentoJanela*3,10),this.colisionHandler,this.updater);
-        new ObjetoParede(new Coordenada(0,AlturaJanela*3 - 10),new Coordenada(ComprimentoJanela*3,AlturaJanela*3),this.colisionHandler,this.updater);
-        new ObjetoParede(new Coordenada(ComprimentoJanela*3 -10,0),new Coordenada(ComprimentoJanela*3,AlturaJanela*3),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(0,0),new Coordenada(10,AlturaJanela*4),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(0,0),new Coordenada(ComprimentoJanela*4,10),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(0,AlturaJanela*4 - 10),new Coordenada(ComprimentoJanela*4,AlturaJanela*4),this.colisionHandler,this.updater);
+        new ObjetoParede(new Coordenada(ComprimentoJanela*4 -10,0),new Coordenada(ComprimentoJanela*4,AlturaJanela*4),this.colisionHandler,this.updater);
     }
 }

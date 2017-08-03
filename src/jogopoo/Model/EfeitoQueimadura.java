@@ -10,11 +10,12 @@ package jogopoo.Model;
  * @author Esdras Chaves
  */
 public class EfeitoQueimadura extends Efeito{
-
+    int xperSec;
     public EfeitoQueimadura(EntidadeModel entidade) {
         super(entidade);
         duracao = 90;
         contador = duracao;
+        xperSec = 15;
         updateEfeito();
     }
 
@@ -22,7 +23,11 @@ public class EfeitoQueimadura extends Efeito{
     public void updateEfeito() {
         if(contador > 0) {
             contador--;
-            entidade.hp = entidade.hp - 5;
+            if(xperSec == 0){
+                entidade.hp = entidade.hp - 5;
+                xperSec = 16;
+            }
+            xperSec--;
         }else {
             entidade.efeitos[1] = null;
             entidade = null;

@@ -29,7 +29,7 @@ public class Acessorio extends Equipavel {
 
     public void equipar(PersonagemModel personagem) {
         if (personagem.getClass().getName().equals("jogopoo.Model.Mago"))
-            ((Mago)personagem).setMana_regen(mp_regen);
+            ((PersonagemMago)personagem).setMana_regen(mp_regen);
         personagem.setPc_crit(this.pc_crit);
         personagem.setVelocidade(this.velocidade);
     }

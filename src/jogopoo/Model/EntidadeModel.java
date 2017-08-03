@@ -18,11 +18,12 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
     protected float hp;
     protected float dano;
     protected float velocidade = 5;
-    public float defesa;
+    protected Defesa defesa;
     protected float vel_ataque;
     protected String nome;
     protected float hp_max;
-    protected int nivel;
+    public int nivel;
+    public HitBox hitBoxColided;
     public HitBoxCircle hitbox;
     public Efeito[] efeitos;
     
@@ -33,20 +34,29 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
         this.hitbox = new HitBoxCircle(posicao, raioHitbox);
         Application.Application.updater.registrarObservador(this);
         Application.Application.colisionHandler.registrarObservador(this);
-	efeitos = new Efeito[4];
+	efeitos = new Efeito[6];
         for(Efeito e: efeitos)
             e=null;
+        this.defesa = new DefesaPersonagem();
         
+    }
+
+    public float getHp() {
+        return hp;
+    }
+
+    public float getHp_max() {
+        return hp_max;
     }
     
         @Override
-    public void setHitBoxColided(HitBox hitBox) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setHitBoxColided(HitBox hitBoxColided) {
+        this.hitBoxColided = hitBoxColided;
     }
 
     @Override
     public HitBox getHitBoxColided() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.hitBoxColided;
     }
     
     
@@ -62,7 +72,9 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
     
     public void update(){}
     public void receberDano(float dano){
-        this.hp -= Math.abs(dano-getDefesa());
+        if(!(this.defesa.devolveDefesa() >= dano))
+            this.hp -= Math.abs(dano-this.defesa.devolveDefesa());
+        System.out.println("VIda" + this.hp);
     }
     public abstract float getDefesa();
     public abstract void movimentar();
@@ -109,6 +121,21 @@ public abstract class EntidadeModel implements Observer,ObserverColisao{
             efeitos[3] = new EfeitoEnraizado(this);
         } else {
             efeitos[3].zeraContador();
+        }
+    }
+    public void setMoveSpeed() {
+        if(efeitos[4] == null) {
+            efeitos[4] = new EfeitoMoveSpeed(this);
+        } else {
+            efeitos[4].zeraContador();
+        }
+    }
+    
+    public void setAttackSpeed() {
+        if(efeitos[5] == null) {
+            efeitos[5] = new EfeitoAtaqueSpeed(this);
+        } else {
+            efeitos[5].zeraContador();
         }
     }
 

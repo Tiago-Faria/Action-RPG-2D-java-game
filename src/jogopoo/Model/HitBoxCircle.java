@@ -10,7 +10,8 @@ package jogopoo.Model;
  * @author tiago
  */
 public class HitBoxCircle implements HitBox{
-    Coordenada inicio;
+    
+    public Coordenada inicio;
     Float raio;
     HitBoxCircle(Coordenada inicio,Float raio){
         this.inicio = inicio;
@@ -21,7 +22,8 @@ public class HitBoxCircle implements HitBox{
         if(inicio.getDistanceTo(h.inicio) <= this.raio+h.raio)return true;
         else return false;
     }
-
+    
+    
     @Override
     public boolean isColiding(HitBoxSquare h) {
         return h.isColiding(this);

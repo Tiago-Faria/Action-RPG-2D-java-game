@@ -5,7 +5,13 @@
  */
 package jogopoo.View;
 
+import java.awt.Checkbox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import jogopoo.Model.Habilidades;
 
 /**
  *
@@ -16,8 +22,14 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
     /**
      * Creates new form menuEscolhaPersonagemView
      */
+    
+    final ArrayList<JCheckBox> listaHabilities = new ArrayList<>();
     public menuEscolhaPersonagemView() {
         initComponents();
+        listaHabilities.add(hability01);
+        listaHabilities.add(hability02);
+        listaHabilities.add(hability03);
+        listaHabilities.add(hability04);
     }
 
     /**
@@ -36,6 +48,10 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        hability01 = new javax.swing.JCheckBox();
+        hability02 = new javax.swing.JCheckBox();
+        hability03 = new javax.swing.JCheckBox();
+        hability04 = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,7 +63,7 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
 
         chooseWarrior.setText("Guerreiro");
         getContentPane().add(chooseWarrior);
-        chooseWarrior.setBounds(190, 480, 240, 50);
+        chooseWarrior.setBounds(190, 360, 240, 50);
 
         chooseMage.setText("Mago");
         chooseMage.addActionListener(new java.awt.event.ActionListener() {
@@ -56,28 +72,36 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(chooseMage);
-        chooseMage.setBounds(520, 480, 240, 50);
+        chooseMage.setBounds(520, 360, 240, 50);
 
         chooseArcher.setText("Arqueiro");
         getContentPane().add(chooseArcher);
-        chooseArcher.setBounds(840, 480, 240, 50);
+        chooseArcher.setBounds(840, 360, 240, 50);
 
         gameInit.setText("PLAY");
         getContentPane().add(gameInit);
-        gameInit.setBounds(520, 600, 240, 50);
+        gameInit.setBounds(520, 460, 240, 50);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/warrior.jpg"))); // NOI18N
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(190, 150, 240, 280);
+        jLabel4.setBounds(190, 50, 240, 280);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mage.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(520, 150, 240, 280);
+        jLabel3.setBounds(520, 50, 240, 280);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/archer.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(840, 150, 240, 280);
+        jLabel1.setBounds(840, 50, 240, 280);
+        getContentPane().add(hability01);
+        hability01.setBounds(520, 540, 240, 23);
+        getContentPane().add(hability02);
+        hability02.setBounds(520, 580, 240, 21);
+        getContentPane().add(hability03);
+        hability03.setBounds(520, 620, 240, 21);
+        getContentPane().add(hability04);
+        hability04.setBounds(520, 660, 240, 21);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/menuBackground.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -103,6 +127,36 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
         gameInit.addActionListener(e);
     }
     
+    public int[] getHability() {
+        int[] habilities = new int[2];
+        int aux = 0;
+        for(int i = 0; i < 4; i++) {
+            if(listaHabilities.get(i).isSelected()) {
+                habilities[aux] = i;
+                aux++;
+            }
+            if(aux == 2)
+                return habilities;
+                
+        }
+        
+        return null;
+    }
+    
+    public void updateCheckbox() {
+        for(int i = 0; i < 4; i++) 
+            listaHabilities.get(i).setText(Habilidades.habilidadesDisponiveis.get(i).getClass().getSimpleName());
+    }
+    
+    public int getNumHability() {
+        int count = 0;
+        for(int i = 0; i < 4; i++) {
+            if(listaHabilities.get(i).isSelected())
+                count++;
+        }
+        return count;
+    }
+    
     private void chooseMageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMageActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chooseMageActionPerformed
@@ -110,6 +164,7 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -147,6 +202,10 @@ public class menuEscolhaPersonagemView extends javax.swing.JFrame {
     private javax.swing.JButton chooseMage;
     private javax.swing.JButton chooseWarrior;
     private javax.swing.JButton gameInit;
+    private javax.swing.JCheckBox hability01;
+    private javax.swing.JCheckBox hability02;
+    private javax.swing.JCheckBox hability03;
+    private javax.swing.JCheckBox hability04;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

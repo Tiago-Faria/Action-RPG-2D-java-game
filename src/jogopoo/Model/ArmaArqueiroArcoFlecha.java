@@ -1,9 +1,16 @@
 package jogopoo.Model;
 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import jogopoo.View.Sprite;
+
 public class ArmaArqueiroArcoFlecha extends ArmaArqueiro {
     
     public ArmaArqueiroArcoFlecha(int nivel) {
         super(nivel);
+        ArrayList<ImageIcon> iconeArma = new ArrayList<ImageIcon>();
+        iconeArma.add(new ImageIcon("src/imagens/Arqueiro.png"));
+        this.sprite= new Sprite(iconeArma,new Coordenada(50, 50));
     }
     
     public void usarArma(PersonagemModel personagem) {
@@ -18,5 +25,10 @@ public class ArmaArqueiroArcoFlecha extends ArmaArqueiro {
     public void usarArma(PersonagemModel ataque, int direcaox, int direcaoy, float dano) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+    @Override
+    public void notificar() {
+        if(this.getCooldown()>0){
+            this.decreaseCooldown();
+        }
+    }
 }

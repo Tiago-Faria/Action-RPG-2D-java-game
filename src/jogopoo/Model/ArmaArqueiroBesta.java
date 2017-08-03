@@ -18,5 +18,10 @@ public class ArmaArqueiroBesta extends ArmaArqueiro {
     public void usarArma(PersonagemModel ataque, int direcaox, int direcaoy, float dano) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+    @Override
+    public void notificar() {
+        if(this.getCooldown()>0){
+            this.decreaseCooldown();
+        }
+    }
 }

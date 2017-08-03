@@ -30,6 +30,14 @@ public class Sprite{
         
         bbg.drawImage(imagens.get(index).getImage(),(int)Posicao.x - imagens.get(index).getImage().getWidth(a)/2,(int)Posicao.y- imagens.get(index).getImage().getHeight(a)/2,a);
     }
+    public void draw(Graphics bbg,Application a,int start,int tamanho){
+        int f = start+tamanho;
+        if(index < start)index = start;
+        if(index >= f)index = start;
+        
+        bbg.drawImage(imagens.get(index).getImage(),(int)Posicao.x - imagens.get(index).getImage().getWidth(a)/2,(int)Posicao.y- imagens.get(index).getImage().getHeight(a)/2,a);
+        index++;
+    }
     
     public ImageIcon getFirstImage() {
        

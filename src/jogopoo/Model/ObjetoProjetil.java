@@ -20,7 +20,7 @@ import jogopoo.View.Sprite;
  *
  * @author Marcio55
  */
-public class ObjetoProjetil implements Observer, ObserverColisao{
+public class ObjetoProjetil extends ObjetoConcreto {
     private HitBox hitbox;
     private float dmg;
     private float velocidade;
@@ -94,28 +94,41 @@ public class ObjetoProjetil implements Observer, ObserverColisao{
         return hitbox;
     }
     
-    public void setHitBoxColided(HitBox hitbox) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    public HitBox getHitBoxColided(){
-        return null;
-    }
-    
     @Override
     public void colide(ObserverColisao ObjColidido) {
                
         if(ObjColidido.getClass().getSuperclass().getName().equalsIgnoreCase("jogopoo.model.NPC"))
         {
-            EntidadeModel p = (EntidadeModel) ObjColidido;
-            p.hp -= this.dmg;
+            NPC npc = (NPC) ObjColidido;
+            npc.receberDano(this.dmg);
+            switch(this.efeito) {
+                case 0:
+                    npc.setLentidao();
+                    break;
+                case 1:
+                    npc.setQueimadura();
+                    break;
+                case 2:
+                    npc.setEnvenenamento();
+                    break;
+                case 3:
+                    npc.setEnraizamento();
+                    break;
+                case 4:
+                    npc.setMoveSpeed();
+                    break;
+                case 5:
+                    npc.setAttackSpeed();
+                    break;
+                default:
+                    break;
+            }
+            
             Application.colisionHandler.removerObservador(this);
             Application.Application.updater.removerObservador(this);
-            
-        }
         
-        // CRIAR NPC E FUNCAO LEVAR DANO
         }
-
+    }
     
     public void movimentar()
     {

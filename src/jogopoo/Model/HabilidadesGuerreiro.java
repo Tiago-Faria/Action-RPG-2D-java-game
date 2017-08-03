@@ -13,9 +13,10 @@ public abstract class HabilidadesGuerreiro extends Habilidades{
     
     protected int estaminaNecessaria;
     public boolean CanUseHabilidade(PersonagemModel  personagem){
-        Mago m = (Mago)personagem;
+        PersonagemGuerreiro m = (PersonagemGuerreiro)personagem;
+        
         if(personagem.getCanAction() && super.getCooldown() == 0){
-            if(m.mana >= this.estaminaNecessaria)
+            if(m.stamina >= this.estaminaNecessaria)
                 return true;
         }
     return false;

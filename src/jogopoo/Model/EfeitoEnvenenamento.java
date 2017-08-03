@@ -10,11 +10,12 @@ package jogopoo.Model;
  * @author Esdras Chaves
  */
 public class EfeitoEnvenenamento extends Efeito{
-
+    int xperSec;
     public EfeitoEnvenenamento(EntidadeModel entidade) {
         super(entidade);
-        duracao = 120;
+        duracao = 90;
         contador = duracao;
+        xperSec = 30;
         entidade.velocidade = 3;
         updateEfeito();
     }
@@ -23,7 +24,11 @@ public class EfeitoEnvenenamento extends Efeito{
     public void updateEfeito() {
         if(contador > 0) {
             contador--;
-            entidade.hp = entidade.hp - 3;
+            if(xperSec == 0){
+                entidade.hp = entidade.hp - 5;
+                xperSec = 16;
+            }
+            xperSec--;
         }else {
             entidade.velocidade = 5;
             entidade.efeitos[2] = null;

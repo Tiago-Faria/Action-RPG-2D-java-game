@@ -20,14 +20,20 @@ public class InventarioModel {
     public void equipItem(int numSlot) {
         if(personagem.inventario.getItems().size() > numSlot) {
             if(personagem.inventario.getItems().get(numSlot).getClass().getSuperclass().getSuperclass().getName().equalsIgnoreCase("jogopoo.Model.Arma")){
-                personagem.equipavel[0] = null;
-                personagem.equipavel[0] =  (Equipavel) personagem.inventario.getItems().get(numSlot);
-            }else if(personagem.inventario.getItems().get(numSlot).getClass().getSuperclass().getName().equalsIgnoreCase("jogopoo.Model.Acessorio")) {
+                if(personagem.getClass().getSimpleName().equalsIgnoreCase("PersonagemMago") && personagem.inventario.getItems().get(numSlot).getClass().getSuperclass().getSimpleName().equalsIgnoreCase("armaMago")||
+                    personagem.getClass().getSimpleName().equalsIgnoreCase("PersonagemGuerreiro") && personagem.inventario.getItems().get(numSlot).getClass().getSuperclass().getSimpleName().equalsIgnoreCase("armaGuerreiro")||
+                    personagem.getClass().getSimpleName().equalsIgnoreCase("PersonagemArqueiro") && personagem.inventario.getItems().get(numSlot).getClass().getSuperclass().getSimpleName().equalsIgnoreCase("armaArqueiro")){
+                    personagem.equipavel[0] = null;
+                    personagem.equipavel[0] =  (Equipavel) personagem.inventario.getItems().get(numSlot);
+                }
+            }else if(personagem.inventario.getItems().get(numSlot).getClass().getName().equalsIgnoreCase("jogopoo.Model.Armadura")) {
                 personagem.equipavel[1] = null;
                 personagem.equipavel[1] =  (Equipavel) personagem.inventario.getItems().get(numSlot);
-            }else if(personagem.inventario.getItems().get(numSlot).getClass().getName().equalsIgnoreCase("jogopoo.Model.Armadura")) {
+            }else if(personagem.inventario.getItems().get(numSlot).getClass().getSuperclass().getName().equalsIgnoreCase("jogopoo.Model.Acessorio")) {
                 personagem.equipavel[2] = null;
                 personagem.equipavel[2] =  (Equipavel) personagem.inventario.getItems().get(numSlot);
+                ((Armadura)personagem.inventario.getItems().get(numSlot)).setPersonagem(personagem.defesa);
+                this.personagem.defesa = (Defesa)personagem.inventario.getItems().get(numSlot);
             }
         }
     }
@@ -42,17 +48,22 @@ public class InventarioModel {
     }
     
     public void removerItem(int numSlot) {
+        
+        if(numSlot > 29) {
+            if(numSlot == 31 && personagem.defesa.getClass().getName().equalsIgnoreCase("jogopoo.Model.Armadura"))
+                personagem.defesa = ((Armadura)personagem.inventario.getItems().get(numSlot)).getPersonagem();
+            personagem.equipavel[numSlot - 30] = null;
+            
+        }
         if(personagem.inventario.getItems().size() > numSlot) {
-            for(int i = 0; i < 3; i++) {
+            for(int i=0; i<3; i++)
                 if(personagem.inventario.getItems().get(numSlot) == personagem.equipavel[i]) {
                     personagem.equipavel[i] = null;
-                    break;
                 }
-            }
             
             personagem.inventario.removeItem(numSlot);
         }
-        
+         
     }
     
     public Equipavel[] retornaEquipavel() {

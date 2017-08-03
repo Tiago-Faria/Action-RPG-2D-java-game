@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class ColisionHandler{
     private static ArrayList<ObserverColisao> objetos = new ArrayList<ObserverColisao>();
     public void registrarObservador(ObserverColisao o) {
+        System.out.println(o.getClass().getName());
         objetos.add(o);
     }
 

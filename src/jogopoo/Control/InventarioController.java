@@ -232,7 +232,7 @@ public class InventarioController{
  
         @Override
         public void windowActivated(WindowEvent e) {
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            theView.updateView(theModel.retornaEquipavel(), theModel.retornaItems());
         }
  
         @Override

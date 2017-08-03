@@ -13,7 +13,7 @@ public abstract class HabilidadesArqueiro extends Habilidades{
 
     protected int manaNecessaria;
     public boolean CanUseHabilidade(PersonagemModel  personagem){
-        Mago m = (Mago)personagem;
+        PersonagemArqueiro m = (PersonagemArqueiro)personagem;
         if(personagem.getCanAction() && super.getCooldown() == 0){
             if(m.mana >= this.manaNecessaria)
                 return true;

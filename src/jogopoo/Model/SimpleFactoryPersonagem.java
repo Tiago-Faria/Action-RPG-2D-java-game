@@ -25,21 +25,21 @@ public class SimpleFactoryPersonagem {
             imagens.add(new ImageIcon("src/imagens/Mago.png"));
             Sprite spr = new Sprite(imagens,c);
             view.setSprite(spr);
-            return new Mago( c, view);
+            return new PersonagemMago( c, view);
         }
         if("Guerreiro".equals(classe)){
             
             imagens.add(new ImageIcon("src/imagens/Guerreiro.png"));
             Sprite spr = new Sprite(imagens,c);
             view.setSprite(spr);
-            return new Guerreiro( c, view);
+            return new PersonagemGuerreiro( c, view);
         }
         if("Arqueiro".equals(classe)){
             
             imagens.add(new ImageIcon("src/imagens/Arqueiro.png"));
             Sprite spr = new Sprite(imagens,c);
             view.setSprite(spr);
-            return new Arqueiro( c, view);
+            return new PersonagemArqueiro( c, view);
         }
         return null;
     }

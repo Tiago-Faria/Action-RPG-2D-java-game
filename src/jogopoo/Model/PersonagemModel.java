@@ -21,14 +21,16 @@ public abstract class PersonagemModel extends EntidadeModel{
     public int xp;
     public float hp_regen;
     public boolean canAction = true;
-    private Habilidades MagiaQ = new HabilidadeBolaDeFogo();
+    private Habilidades MagiaQ;
     private Habilidades MagiaE;
     public double lastDirectionX= 0;
     public double lastDirectionY= 1;
     public Inventario inventario;
     public Equipavel[] equipavel;
     public int CooldownAtaque;
+    
 
+    
     public PersonagemModel(Coordenada pos, EntidadeView view,float raio) {
         super(pos, view,raio);
         equipavel = new Equipavel[3];
@@ -42,17 +44,31 @@ public abstract class PersonagemModel extends EntidadeModel{
         regenerarVida();
         usarHabilidade();
         hook();
+        if(hp<=0)morrer();
     }
     public abstract void atacar();
     public void defender(){
-        isDefending = Application.teclas[KeyEvent.VK_SPACE];
+        if(Application.teclas[KeyEvent.VK_SPACE] && !isDefending) {
+            isDefending = true;
+            Armadura a = new Armadura(0);
+            System.out.println("Defesa antes = " +this.defesa.getDefesa());
+            a.setPersonagem(defesa);
+            a.setDefesa(this.defesa.getDefesa());
+            this.defesa = a;
+            System.out.println("Defesa = " + this.defesa.devolveDefesa());
+        }else if(!Application.teclas[KeyEvent.VK_SPACE] && isDefending) {
+            isDefending = false;
+            this.defesa = ((Armadura)this.defesa).getPersonagem();
+        }
     }
     @Override
     public float getDefesa() {
-        if(isDefending)return this.defesa;
-        else return this.defesa/2;
+        if(isDefending)return this.defesa.getDefesa();
+        else return this.defesa.getDefesa()/2;
     }
-    
+    public void setDefesa(float defesa){
+        this.defesa.setDefesa(defesa);
+    }
     public ArrayList<Item> getItem() {
         return inventario.getItems();
     }
@@ -66,7 +82,7 @@ public abstract class PersonagemModel extends EntidadeModel{
                 this.MagiaQ.usarHabilidade(this);
             }
             else if(Application.teclas[KeyEvent.VK_E]){
-                this.getMagiaE();
+                this.MagiaE.usarHabilidade(this);
             }       
         }
     }
@@ -105,7 +121,13 @@ public abstract class PersonagemModel extends EntidadeModel{
         }
         
     }
-
+    
+    public void setMagiaQ(Habilidades h){
+        this.MagiaQ = h;
+    }
+    public void setMagiaE(Habilidades h){
+        this.MagiaE = h;
+    }
     public Habilidades getMagiaQ() {
         return MagiaQ;
     }
@@ -173,7 +195,9 @@ public abstract class PersonagemModel extends EntidadeModel{
     abstract void uparNivel();
     public void hook(){}
     
-    public void morrer(){};
+    public void morrer(){
+        Application.Exit();
+    };
 
     private void DiminuiCooldown() {
         if(CooldownAtaque > 0)CooldownAtaque--;

@@ -19,7 +19,7 @@ import jogopoo.View.Sprite;
  * @author Marcio55
  */
 public abstract class Habilidades implements Observer{
-    
+    public static ArrayList<Habilidades> habilidadesDisponiveis = new ArrayList<Habilidades>();
     protected float dmg;
     protected int duracao;
     protected float raio = 10;
@@ -27,6 +27,7 @@ public abstract class Habilidades implements Observer{
     protected int cooldown = 0;
     ArrayList<ImageIcon> imagens = new ArrayList<ImageIcon>();
     protected Sprite sprite;
+    int tamanhoSprite;
     protected int efeito;
     
     public abstract void usarHabilidade(PersonagemModel  personagem);
@@ -37,8 +38,8 @@ public abstract class Habilidades implements Observer{
         //}
     }
     public void notificar(){
-        if(cooldown>0){
-            cooldown--;
+        if(this.cooldown>0){
+            this.cooldown--;
         }
     }
     
